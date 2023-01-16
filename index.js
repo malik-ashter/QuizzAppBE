@@ -1,6 +1,4 @@
 const express = require('express');
-const app = express();
-const cors = require('cors');
 app.use(cors({origin: '*'}));
 const fs = require('fs');
 const mongoose = require('mongoose');
