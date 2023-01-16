@@ -6,17 +6,6 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-app.use(function (req, res, next) { //before the routes are defined
-    const allowedOrigins = ['http://islamicquizz.rf.gd', 'http://127.0.0.1:5500'];
-    const origin = req.headers.origin;
-    if (allowedOrigins.includes(origin)) {
-        res.setHeader('Access-Control-Allow-Origin', origin);
-    }
-    res.setHeader('Access-Control-Allow-Methods', '*');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
-
 const questions = require('./routes/questions');
 const titles = require('./routes/titles');
 const submitForm = require('./routes/submitForm');
