@@ -1,6 +1,7 @@
 [
     {
-        "title": "First test of Zilqad"
+        "title": "First test of Zilqad",
+        "showAnswers" : "no"
     },
     {
         "question" : "what is the aswer?",
