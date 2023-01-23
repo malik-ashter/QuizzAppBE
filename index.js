@@ -37,9 +37,10 @@ app.get('/', (req, res)=>{
     res.send('Hello from Rest!');
 });
 
-app.listen(port, () => console.log(`Listening on port ${port}..`));
-
 mongoose.connect(process.env.MONGODB_URL)
 .then(()=> {
     console.log("Connected to db");
 });
+
+app.listen(port, () => console.log(`Listening on port ${port}..`));
+
