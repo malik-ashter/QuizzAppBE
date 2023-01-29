@@ -38,7 +38,7 @@ app.get('/', (req, res)=>{
     res.send('Hello from Rest!');
 });
 
-mongoose.connect(process.env.MONGODB_URL + 'quizz')
+mongoose.connect(process.env.MONGODB_URL)
 .then(()=> {
     console.log("Connected to db");
 })
