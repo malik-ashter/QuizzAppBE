@@ -2,21 +2,23 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/ur', (req, res)=>{
-    if(!(questionsUrdu[0].showAnswers == 'yes')) {
-        questionsUrdu.forEach(element => {
+    let questions = JSON.parse(JSON.stringify(questionsUrdu));
+    if(!(questions[0].showAnswers == 'yes')) {
+        questions.forEach(element => {
             delete element["answer"];
         });
     }
-    res.send(questionsUrdu);
+    res.send(questions);
 });
 
 router.get('/en', (req, res)=>{
-    if(!(questionsEnglish[0].showAnswers == 'yes')) {
-        questionsEnglish.forEach(element => {
+    let questions = JSON.parse(JSON.stringify(questionsEnglish));
+    if(!(questions[0].showAnswers == 'yes')) {
+        questions.forEach(element => {
             delete element["answer"];
         });
     }
-    res.send(questionsEnglish);
+    res.send(questions);
 });
 
 module.exports = router;

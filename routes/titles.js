@@ -4,7 +4,7 @@ const router = express.Router();
 router.get('/', (req, res)=>{
     let titles = {
         title : questionsUrdu[0].title,
-        quizzId : 'f4EnJdt9Rd4kM3jrJRgtEo'
+        quizzID : 'f4EnJdt9Rd4kM3jrJRgtEo'
     };
     res.send(titles);
 });
