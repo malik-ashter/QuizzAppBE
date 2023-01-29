@@ -3,9 +3,8 @@ const router = express.Router();
 
 router.get('/', (req, res)=>{
     let titles = {
-        titleEnglish: questionsEnglish[0].title,
-        titleUrdu: questionsUrdu[0].title,
-        showAnswers: questionsEnglish[0].showAnswers
+        title : questionsUrdu[0].title,
+        quizzId : 'f4EnJdt9Rd4kM3jrJRgtEo'
     };
     res.send(titles);
 });

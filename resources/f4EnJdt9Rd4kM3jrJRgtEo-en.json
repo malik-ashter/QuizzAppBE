@@ -1,7 +1,7 @@
 [
     {
         "title": "First test of Zilqad",
-        "showAnswers" : "no"
+        "showAnswers" : "yes"
     },
     {
         "question" : "what is the aswer?",
