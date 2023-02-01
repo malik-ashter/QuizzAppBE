@@ -2,29 +2,30 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-let questions;
 
-router.post('/', (req, res) => {
+
+router.post('/', async(req, res) => {
+    let questions;
     if(req.body.language == 'ur') {
         questions = questionsUrdu;
     }
     let answersToSave = req.body;
-    let score = calculateScore(answersToSave.answers);
+    let score = calculateScore(answersToSave.answers, questions);
     answersToSave.score = score;
-    if(!questions[0].showAnswers.toLowerCase() == 'yes') {
-        saveAnswers(answersToSave)
-            .then(()=> {
-                res.status(200).send();
-            })
-            .catch((err)=> {
-                res.status(400).send({message: err})
-            });
+    if(!(questions[0].showAnswers.toLowerCase() == 'yes')) {
+        try{
+            await saveAnswers(answersToSave);
+            res.status(200).send();
+        } catch(err) {
+            console.log(err);
+            res.status(400).send({message: err})
+        }
     } else {
-        res.status(200).send(score);
+        res.status(200).json({score: score});
     }
 });
 
-function calculateScore(answers) {
+function calculateScore(answers, questions) {
     let score = 0;
     for(let i = 1; i < questions.length; i++) {
         let ans = answers.find(element => {
@@ -42,7 +43,7 @@ const answersSchema = new mongoose.Schema({
     quizzID : String,
     language : String,
     userID : String,
-    score : String,
+    score : Number,
     answers : [
         {
           question: String,
