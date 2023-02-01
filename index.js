@@ -11,18 +11,20 @@ const questions = require('./routes/questions');
 const titles = require('./routes/titles');
 const submitForm = require('./routes/submitForm');
 const submitQuizz = require('./routes/submitQuizz');
+const quizzResults = require('./routes/quizzResults');
 
 app.use(express.json());
 app.use('/api/quizz/data', titles);
 app.use('/api/user/insert', submitForm);
 app.use('/api/quizz/questions', questions);
 app.use('/api/quizz/submit', submitQuizz);
+app.use('/api/quizz/results', quizzResults);
 
 const port = process.env.PORT || 3000;
 
 global.questionsUrdu;
 global.questionsEnglish;
-fs.readFile('./resources/f4EnJdt9Rd4kM3jrJRgtEo-ur.json', (err, data) => {
+fs.readFile('./resources/tmLwikCHkxwGwQ1Xjy3UVn-ur.json', (err, data) => {
     if (err) throw err;
     questionsUrdu = JSON.parse(data);
     console.log(questionsUrdu);
@@ -38,13 +40,13 @@ app.get('/', (req, res)=>{
     res.send('Hello from Rest!');
 });
 
-mongoose.connect(process.env.MONGODB_URL)
-.then(()=> {
-    console.log("Connected to db");
-})
-.catch(err => {
-    console.log(err);
-});
+connentDB().then(console.log("Connected to db")).catch(err => console.log(err));
+
+async function connentDB() {
+  await mongoose.connect(process.env.MONGODB_URL);
+}
 
 app.listen(port, () => console.log(`Listening on port ${port}..`));
+
+// console.log(short.generate());
 

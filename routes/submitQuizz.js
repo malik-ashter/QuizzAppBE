@@ -42,21 +42,28 @@ function calculateScore(answers, questions) {
 const answersSchema = new mongoose.Schema({
     quizzID : String,
     language : String,
-    userID : String,
+    user :  {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'User'
+    },
     score : Number,
-    answers : [
-        {
-          question: String,
-          answer: String
-        }
-      ]
+    answers : String
 });
 
 const Answer = mongoose.model('Answer', answersSchema);
 
 async function saveAnswers(answersToSave) {
+    answersToSave.answers = convertToString(answersToSave.answers);
     const answer =  new Answer(answersToSave);
     const result = await answer.save();
     return result._id;
 }
+
+function convertToString(answers) {
+    return answers.map(function(answer) {
+        return answer['question'] + ':' + answer['answer'];
+      }).toString();
+}
+
+module.exports = Answer;
 module.exports = router;
