@@ -7,7 +7,7 @@ const logger = require('../utils/logger');
 
 router.post('/', async(req, res, next) => {
     let questions;
-    if(req.body.language == 'ur') {
+    if(req.body.language.trim().toLowerCase() == 'urdu') {
         questions = questionsUrdu;
     }
     let answersToSave = req.body;
