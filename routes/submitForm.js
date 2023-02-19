@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
     User.exists({mobile : req.body.mobile}, function (err, doc) {
         if (err){
-            res.status(400).send({message: err})
+            next(err);
         }else{
             if(doc) {
                 updateUser(req.body)
@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
                     res.status(200).json({userID: user._id});
                 })
                 .catch((err)=> {
-                    res.status(400).send({message: err})
+                    next(err);
                 });
             } else {
                 saveUser(req.body)
@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
                     res.status(200).json({userID: user._id});
                 })
                 .catch((err)=> {
-                    res.status(400).send({message: err})
+                    next(err);
                 });
             }
         }
@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
     mobile : String,
     country : String,
     quizzLanguage : String
-});
+},{ timestamps: true });
 
 const User = mongoose.model('User', userSchema);
 
