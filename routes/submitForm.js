@@ -29,7 +29,7 @@ router.post('/', (req, res, next) => {
 });
 
 const userSchema = new mongoose.Schema({
-    userName : String,
+    fullName : String,
     gender : String,
     age : Number,
     mobile : String,

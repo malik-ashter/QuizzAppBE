@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
 async function getResults() {
     return Answer
         .find()
-        .populate('user', 'userName mobile country quizzLanguage -_id')
+        .populate('user', 'fullName mobile country quizzLanguage -_id')
         .select('score answers user -_id')
         .sort({'score' : -1});
 }
